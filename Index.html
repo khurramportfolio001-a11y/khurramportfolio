@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khurram Sattar | Futuristic Portfolio</title>
+
+<!-- SEO META -->
+<meta name="description" content="Khurram Sattar - Futuristic Portfolio. Web Developer, UI/UX Designer & Creative Coder.">
+<meta name="keywords" content="Portfolio, Web Developer, UI UX, Frontend, HTML, CSS, JavaScript">
+<meta name="author" content="Khurram Sattar">
+
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Roboto',sans-serif;
+  background:#000;
+  color:#fff;
+  overflow-x:hidden;
+  transition:all .3s;
+}
+
+/* Scroll Progress */
+#progress{position:fixed;top:0;left:0;height:4px;background:#00d4ff;width:0%;z-index:3000;transition:0.3s;}
+
+/* Header */
+header{position:fixed;width:100%;top:0;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,212,255,.3);z-index:2000;transition:all .3s;}
+.nav{max-width:1200px;margin:auto;padding:0 20px;height:70px;display:flex;justify-content:space-between;align-items:center;}
+.logo{font-size:1.6rem;font-weight:700;color:#00d4ff;}
+.nav ul{list-style:none;display:flex;gap:25px;}
+.nav a{color:#fff;text-decoration:none;position:relative;}
+.nav a::after{content:'';position:absolute;bottom:-6px;left:0;width:0;height:2px;background:#00d4ff;transition:.3s;}
+.nav a:hover::after{width:100%;}
+.menu-btn{display:none;font-size:1.8rem;cursor:pointer;}
+
+/* Hero */
+#hero{height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;}
+.profile{width:170px;height:170px;border-radius:50%;border:4px solid #00d4ff;box-shadow:0 0 40px rgba(0,212,255,.8);transition:all .3s;}
+#hero h1{margin-top:20px;font-size:3.8rem;background:linear-gradient(45deg,#00d4ff,#0099cc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.typing{margin-top:15px;font-size:1.4rem;color:#aaa;transition:all .3s;}
+.cursor{color:#00d4ff;animation:blink 1s infinite;}
+@keyframes blink{50%{opacity:0;}}
+
+/* Sections */
+section{padding:120px 20px;opacity:0;transform:translateY(40px);transition:1s;}
+section.show{opacity:1;transform:translateY(0);}
+h2{text-align:center;color:#00d4ff;font-size:2.5rem;margin-bottom:40px;transition:all .3s;}
+.container{max-width:1000px;margin:auto;}
+
+/* Cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:30px;}
+.card{background:rgba(0,212,255,.08);border:1px solid #00d4ff;padding:35px;text-align:center;border-radius:14px;transition:.4s;}
+.card:hover{transform:translateY(-12px) scale(1.02);box-shadow:0 0 35px rgba(0,212,255,.7);}
+.card i{font-size:2.6rem;color:#00d4ff;margin-bottom:15px;}
+
+/* Skills */
+.skill{margin-bottom:25px;}
+.bar{height:18px;background:#111;border-radius:20px;overflow:hidden;transition:all .3s;}
+.fill{height:100%;background:linear-gradient(90deg,#00d4ff,#0099cc);width:0;animation:fill 2s forwards;}
+@keyframes fill{to{width:var(--w);}}
+
+/* Contact */
+input,textarea{width:100%;padding:15px;margin-bottom:15px;background:#111;border:1px solid #00d4ff;color:#fff;border-radius:6px;transition:all .3s;}
+button{padding:15px 35px;background:#00d4ff;border:none;font-weight:bold;cursor:pointer;transition:all .3s;}
+button:hover{box-shadow:0 0 30px #00d4ff;transform:scale(1.05);}
+
+/* Stars Background */
+canvas{position:fixed;inset:0;z-index:-1;transition:all .2s;}
+
+/* Footer */
+.footer{background:rgba(0,0,0,.8);border-top:1px solid rgba(0,212,255,.3);padding:40px 20px;text-align:center;position:relative;transition:all .3s;}
+.footer-socials{margin-bottom:20px;}
+.footer-socials a{color:#00d4ff;margin:0 12px;font-size:1.6rem;transition:.3s;}
+.footer-socials a:hover{color:#fff;text-shadow:0 0 15px #00d4ff;transform:scale(1.2);}
+.footer-links{margin-bottom:15px;font-size:0.9rem;}
+.footer-links a{color:#aaa;text-decoration:none;margin:0 5px;transition:.3s;}
+.footer-links a:hover{color:#00d4ff;}
+.footer-links span{color:#444;}
+.copyright{color:#777;font-size:0.85rem;}
+.copyright span{color:#00d4ff;}
+
+/* Mobile */
+@media(max-width:768px){.nav ul{position:absolute;top:70px;right:0;background:#000;flex-direction:column;width:200px;display:none;}.nav ul.show{display:flex}.menu-btn{display:block}#hero h1{font-size:2.6rem}}
+
+/* Dark/Light Toggle Button */
+#theme-toggle{
+  position:fixed;bottom:20px;right:20px;background:#00d4ff;color:#000;border:none;padding:12px 18px;border-radius:50px;cursor:pointer;z-index:5000;font-weight:bold;box-shadow:0 0 15px #00d4ff;transition:all .3s;
+}
+#theme-toggle:hover{transform:scale(1.1);}
+
+/* Light Theme */
+body.light{background:#f4f4f4;color:#111;}
+body.light header{background:rgba(255,255,255,.95);border-bottom:1px solid #00d4ff;}
+body.light .nav a{color:#111;}
+body.light .nav a::after{background:#0099cc;}
+body.light .card{background:rgba(0,212,255,.05);color:#111;border:1px solid #0099cc;}
+body.light .profile{border-color:#0099cc;}
+body.light .typing{color:#444;}
+body.light .typing .cursor{color:#0099cc;}
+body.light h2{color:#0099cc;}
+body.light footer{background:rgba(255,255,255,.9);color:#111;}
+body.light .footer-socials a{color:#0099cc;}
+body.light .footer-socials a:hover{color:#000;text-shadow:none;}
+body.light .footer-links a{color:#111;}
+body.light .footer-links a:hover{color:#0099cc;}
+body.light .copyright{color:#444;}
+body.light input, body.light textarea{background:#e8e8e8;color:#111;border:1px solid #0099cc;}
+body.light button{background:#0099cc;color:#fff;}
+body.light #progress{background:#0099cc;}
+</style>
+</head>
+
+<body>
+
+<div id="progress"></div>
+<canvas id="stars"></canvas>
+
+<header>
+<div class="nav">
+<div class="logo">Khurram Portfolio Website</div>
+<i class="fas fa-bars menu-btn"></i>
+<ul>
+<li><a href="#hero">Home</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#skills">Skills</a></li>
+<li><a href="#projects">Projects</a></li>
+<li><a href="#contact">Contact</a></li>
+<li><a href="#resume">Resume</a></li>
+<li><a href="https://wa.me/923150592224?text=Hello%20Assalamualaikum">Whatsapp</a></li>
+</ul>
+</div>
+</header>
+
+<!-- HERO -->
+<section id="hero" class="show">
+<div class="hero">
+<img src="Pic.jpg" class="profile">
+<h1>Khurram Portfolio Website</h1>
+<div class="typing">
+<span id="text"></span><span class="cursor">|</span>
+</div>
+</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+<h2>About Me</h2>
+<div class="container">
+<p style="text-align:center">I design and develop futuristic, animated, and responsive websites. Passionate about creating high-impact digital experiences with clean, modern, and interactive designs. I specialize in web development, UI/UX design, and creative coding.</p>
+</div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+<h2>Skills</h2>
+<div class="container">
+<div class="skill">HTML<div class="bar"><div class="fill" style="--w:99%"></div></div></div>
+<div class="skill">CSS<div class="bar"><div class="fill" style="--w:95%"></div></div></div>
+<div class="skill">JavaScript<div class="bar"><div class="fill" style="--w:95%"></div></div></div>
+</div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+<h2>Projects</h2>
+<div class="container cards">
+<div class="card">🚀 Portfolio Website</div>
+<div class="card">⚡ Landing Page</div>
+<div class="card">🌌 Animated UI</div>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+<h2>Contact</h2>
+<div class="container">
+<form action="mailto:khurramsattarqureshi@gmail.com" method="post" enctype="text/plain">
+<input name="name" placeholder="Name" required>
+<input name="email" placeholder="Email" type="email" required>
+<textarea name="message" rows="5" placeholder="Message" required></textarea>
+<button type="submit">Send Message</button>
+</form>
+</div>
+</section>
+
+<!-- RESUME -->
+<section id="resume">
+<h2>Resume</h2>
+<div style="text-align:center; margin-top:30px;">
+<a href="CV.pdf" download>
+<button>Download My Resume</button>
+</a>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+<div class="footer-content">
+<div class="footer-socials">
+<a href="https://wa.me/923150592224" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<a href="https://www.facebook.com/share/1HpFmae2zw/" target="_blank"><i class="fab fa-facebook"></i></a>
+<a href="https://www.instagram.com/itx_khurram0?igsh=NW13NnB3OXJmZDlx" target="_blank"><i class="fab fa-instagram"></i></a>
+</div>
+<div class="footer-links">
+<a href="#">Privacy Policy</a> <span>|</span> <a href="#">Terms</a>
+</div>
+<p class="copyright">© <span id="year"></span> Khurram Sattar. All Rights Reserved.</p>
+</div>
+</footer>
+
+<!-- Dark/Light Toggle -->
+<button id="theme-toggle">🌙 Toggle Theme</button>
+
+<script>
+/* Scroll Progress */
+const progress=document.getElementById("progress");
+window.onscroll=()=>{progress.style.width=(scrollY/(document.body.scrollHeight-innerHeight))*100+"%";document.querySelectorAll("section").forEach(s=>{if(s.getBoundingClientRect().top<innerHeight-150)s.classList.add("show");});};
+
+/* Mobile menu */
+document.querySelector(".menu-btn").onclick=()=>{document.querySelector(".nav ul").classList.toggle("show");};
+
+/* AI Typing */
+const roles=["Web Developer","UI/UX Designer","Creative Coder"];
+let i=0,j=0,del=false;
+function type(){
+let w=roles[i];
+text.innerHTML=w.substring(0,j);
+if(!del && j++===w.length+12) del=true;
+if(del && j--===0){del=false;i=(i+1)%roles.length}
+setTimeout(type,del?60:110);
+}
+type();
+
+/* Stars Background */
+const c=document.getElementById("stars"),ctx=c.getContext("2d");
+function resize(){c.width=innerWidth;c.height=innerHeight;}
+resize();window.addEventListener("resize",resize);
+let stars=[...Array(250)].map(()=>({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*2,s:Math.random()*0.8+0.2}));
+function anim(){ctx.clearRect(0,0,c.width,c.height);stars.forEach(st=>{ctx.fillStyle="#00d4ff";ctx.beginPath();ctx.arc(st.x,st.y,st.r,0,Math.PI*3);ctx.fill();st.y+=st.s;if(st.y>c.height){st.y=0;st.x=Math.random()*c.width;}});requestAnimationFrame(anim);}
+anim();
+
+/* Copyright year */
+document.getElementById("year").innerText=new Date().getFullYear();
+
+/* Dark/Light toggle */
+const toggle=document.getElementById("theme-toggle");
+toggle.onclick=()=>{document.body.classList.toggle("light");};
+</script>
+
+</body>
+</html>
